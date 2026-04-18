@@ -89,6 +89,7 @@ interface YTPlayerConfig {
     rel?: number;
     showinfo?: number;
     playsinline?: number;
+    origin?: string;
   };
   events?: {
     onReady?: (event: YTPlayerEvent) => void;
