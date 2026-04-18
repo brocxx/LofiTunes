@@ -15,7 +15,13 @@ export function useGifCycle() {
   }, []);
 
   const cycleGif = useCallback(() => {
-    setCurrentGifIndex(prev => (prev + 1) % LOFI_GIFS.length);
+    setCurrentGifIndex(prev => {
+      let next;
+      do {
+        next = Math.floor(Math.random() * LOFI_GIFS.length);
+      } while (next === prev && LOFI_GIFS.length > 1);
+      return next;
+    });
   }, []);
 
   useEffect(() => {

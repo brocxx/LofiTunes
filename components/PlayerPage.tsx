@@ -13,6 +13,10 @@ interface PlayerPageProps {
   accessToken: string;
 }
 
+function cleanArtistName(name: string): string {
+  return name.replace(/\s*-\s*Topic$/i, '').trim();
+}
+
 export function PlayerPage({ accessToken }: PlayerPageProps) {
   const { currentGif, cycleGif } = useGifCycle();
 
@@ -234,41 +238,41 @@ export function PlayerPage({ accessToken }: PlayerPageProps) {
       </div>
 
       {/* SideNavBar (Solid) */}
-      <aside className={`fixed left-0 top-0 h-full z-40 flex flex-col p-6 bg-[#1c162c] w-64 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex items-center gap-3 mb-10 mt-14">
-          <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
-            <img 
-              className="w-full h-full object-cover" 
-              alt="Woman logo" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDovXlj35n-gsrUBLcrRPsjd6nlJ0o-uCEsNiQGdPNbXptQg8gXFNu5ikIrudP9PMrG2xf-7EM_RIj6MM-jfmxtIGpTaWbbGcVL8T4Q1TXcR1cM9mIHtS-6JNpfPx0kPq-7HeoBd5FMb6Z5dNKO3x8ojBa0gqX05c7E0ak5DbehEuCE--d8v_dKysuqIhnzzV98i_-Fe9qzPgRuc1Nf2rsHTzoiJPnjwIRZ7BaVn4hLOXec45TVw38hdHZJlg4ph67tDbP16wLCnHs"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-serif text-[#ecdcff] leading-none">LofiTunes</span>
-            <span className="text-[10px] uppercase tracking-widest text-on-surface-variant/60">The Digital Sanctuary</span>
-          </div>
+      <aside className={`fixed left-0 top-0 h-full z-40 flex flex-col bg-[#1c162c] w-64 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        {/* Brand Header */}
+        <div className="flex items-center gap-3 px-5 pt-5 pb-3 mt-12">
+          <span
+            className="text-xl font-serif italic"
+            style={{
+              background: 'linear-gradient(135deg, #ecdcff 0%, #c4847a 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >LofiTunes</span>
         </div>
 
-        <nav className="flex flex-col gap-2">
-          <a className="sidebar-link flex items-center gap-4 px-4 py-3 hover:bg-white/5" href="#">
-            <span className="material-symbols-outlined">home</span>
-            <span className="font-medium">Home</span>
+        {/* Nav Links */}
+        <nav className="flex flex-col gap-0.5 px-3 mb-2">
+          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/60 hover:bg-white/5 hover:text-white/90 transition-colors text-[13px]" href="#">
+            <span className="material-symbols-outlined text-[20px]">home</span>
+            <span>Home</span>
           </a>
-          <a className="sidebar-link flex items-center gap-4 px-4 py-3 hover:bg-white/5" href="#">
-            <span className="material-symbols-outlined">explore</span>
-            <span className="font-medium">Discover</span>
+          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/60 hover:bg-white/5 hover:text-white/90 transition-colors text-[13px]" href="#">
+            <span className="material-symbols-outlined text-[20px]">explore</span>
+            <span>Discover</span>
           </a>
-          <a className="sidebar-link active flex items-center gap-4 px-4 py-3 font-medium rounded-r-full" href="#">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>library_music</span>
-            <span className="font-medium">Library</span>
-          </a>
-          <a className="sidebar-link flex items-center gap-4 px-4 py-3 hover:bg-white/5" href="#">
-            <span className="material-symbols-outlined">playlist_play</span>
-            <span className="font-medium">My Playlists</span>
+          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/[0.06] text-white text-[13px] font-medium" href="#">
+            <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>library_music</span>
+            <span>Library</span>
           </a>
         </nav>
 
-        <div className="mt-4 flex-1 flex flex-col min-h-0">
+        {/* Divider */}
+        <div className="mx-5 border-t border-white/[0.06]"></div>
+
+        {/* Search + Playlists area */}
+        <div className="flex-1 flex flex-col min-h-0 pt-3">
           <style>{`
             .search-input:focus {
               border-color: var(--accent-color) !important;
@@ -278,44 +282,38 @@ export function PlayerPage({ accessToken }: PlayerPageProps) {
               scrollbar-width: thin;
               scrollbar-color: rgba(255,255,255,0.15) transparent;
             }
-            .playlist-item {
-              padding: 8px 16px;
-              border-left: 0px solid transparent;
-            }
-            .playlist-item:hover, .playlist-item.active {
-              padding-left: 14px !important;
-              border-left: 2px solid var(--accent-color) !important;
-            }
           `}</style>
           
-          <div className="mb-4 relative px-6" ref={searchRef}>
-            <div className="relative group">
+          {/* Search Bar */}
+          <div className="mb-3 relative px-4" ref={searchRef}>
+            <div className="relative">
+              <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-white/30 text-[16px]">search</span>
               <input 
                 type="text" 
                 placeholder="Search songs..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => { if (searchResults.length > 0 || searchQuery.trim() !== '') setShowDropdown(true); }}
-                className="search-input w-full h-[36px] bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-lg px-3 text-[13px] text-white placeholder:text-white/40 outline-none transition-all"
+                className="search-input w-full h-[34px] bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-lg pl-8 pr-3 text-[13px] text-white placeholder:text-white/30 outline-none transition-all"
               />
             </div>
             
             {showDropdown && searchQuery.trim() !== '' && (
-              <div className="absolute top-11 left-6 right-6 bg-[#251e38] border border-white/10 rounded-lg shadow-xl z-50 p-2 max-h-[300px] overflow-y-auto custom-thin-scrollbar">
+              <div className="absolute top-10 left-4 right-4 bg-[#251e38] border border-white/10 rounded-lg shadow-xl z-50 p-1.5 max-h-[300px] overflow-y-auto custom-thin-scrollbar">
                 {isSearching ? (
                   <div className="p-3 text-center text-xs text-white/50">Searching...</div>
                 ) : searchResults.length > 0 ? (
                   searchResults.map(item => (
                     <div 
                       key={item.id.videoId}
-                      className="w-full p-[10px_16px] rounded-[8px] bg-white/[0.04] border border-white/5 mb-1 text-[13px] text-white/70 hover:bg-white/[0.08] hover:text-white transition-all duration-200 cursor-pointer overflow-hidden"
+                      className="w-full px-3 py-2 rounded-md text-[13px] text-white/70 hover:bg-white/[0.08] hover:text-white transition-all duration-150 cursor-pointer overflow-hidden"
                       onClick={() => {
                         loadAndPlay(item.id.videoId);
                         setShowDropdown(false);
                       }}
                     >
                       <div className="text-ellipsis overflow-hidden whitespace-nowrap">{item.snippet.title}</div>
-                      <div className="text-[10px] text-white/40 mt-1 text-ellipsis overflow-hidden whitespace-nowrap">{item.snippet.channelTitle}</div>
+                      <div className="text-[10px] text-white/35 mt-0.5 text-ellipsis overflow-hidden whitespace-nowrap">{item.snippet.channelTitle}</div>
                     </div>
                   ))
                 ) : (
@@ -325,18 +323,28 @@ export function PlayerPage({ accessToken }: PlayerPageProps) {
             )}
           </div>
 
-          <div className="flex-1 overflow-y-auto px-6 pb-6 custom-thin-scrollbar">
-            <p className="text-[10px] text-[rgba(255,255,255,0.3)] font-normal uppercase tracking-[0.1em] pt-3 pb-2 px-4">Your Playlists</p>
-            <div className="flex flex-col gap-0">
+          {/* Playlist List — YouTube Music style */}
+          <div className="flex-1 overflow-y-auto px-2 pb-4 custom-thin-scrollbar">
+            <p className="text-[10px] text-white/25 font-semibold uppercase tracking-[0.12em] px-3 py-2">Your Playlists</p>
+            <div className="flex flex-col gap-0.5">
               {playlists.map(p => {
                 const isActive = p.id === selectedPlaylistId;
                 return (
                   <div 
                     key={p.id} 
-                    className={`playlist-item w-full text-[13px] transition-all duration-150 cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap ${isActive ? 'active text-white font-medium' : 'text-[rgba(255,255,255,0.6)] hover:text-[rgba(255,255,255,0.9)]'}`}
+                    className={`w-full px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-150 ${
+                      isActive 
+                        ? 'bg-white/[0.08] text-white' 
+                        : 'text-white/55 hover:bg-white/[0.04] hover:text-white/85'
+                    }`}
                     onClick={() => { setSelectedPlaylistId(p.id); setCurrentSongIndex(0); }}
                   >
-                    {p.title}
+                    <div className={`text-[13px] leading-tight truncate ${isActive ? 'font-semibold' : 'font-medium'}`}>
+                      {p.title}
+                    </div>
+                    <div className="text-[11px] text-white/30 mt-0.5 truncate">
+                      {p.itemCount} songs
+                    </div>
                   </div>
                 );
               })}
@@ -345,10 +353,10 @@ export function PlayerPage({ accessToken }: PlayerPageProps) {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="mt-auto pt-4 border-t border-white/10 mt-4 -mx-2 px-2">
+        <div className="px-3 pb-4 pt-2 border-t border-white/[0.06]">
           <button 
             onClick={() => signOut()} 
-            className="flex items-center gap-3 w-full px-4 py-3 text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors text-[13px] font-medium group"
+            className="flex items-center gap-3 w-full px-3 py-2.5 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-colors text-[13px] group"
           >
             <span className="material-symbols-outlined text-[18px] group-hover:text-[var(--accent-color)] transition-colors">logout</span>
             <span>Sign Out</span>
@@ -367,7 +375,7 @@ export function PlayerPage({ accessToken }: PlayerPageProps) {
             {currentSong ? currentSong.title : 'Loading...'}
           </h1>
           <p className="text-xl text-[#c4847a] font-light tracking-wide italic transition-all duration-300 mb-2">
-            {currentSong ? currentSong.artist : '—'}
+            {currentSong ? cleanArtistName(currentSong.artist) : '—'}
           </p>
           <p className="mt-2 text-[10px] text-white/40 tracking-[0.2em] font-light uppercase">
             {isLoadingSongs ? 'Loading...' : `${currentSongIndex + 1} / ${currentSongs.length || 0}`}

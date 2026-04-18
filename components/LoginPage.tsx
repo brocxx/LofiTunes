@@ -22,60 +22,67 @@ export function LoginPage({ tokenExpired }: LoginPageProps) {
       </div>
 
       {/* Login Content Canvas */}
-      <main className="relative z-10 w-full max-w-md px-6">
-        <div className="glass-panel p-10 rounded-xl shadow-[0_0_80px_rgba(236,220,255,0.08)] flex flex-col items-center text-center">
+      <main className="relative z-10 w-full max-w-sm px-6">
+        <div className="glass-panel p-8 rounded-2xl shadow-[0_0_80px_rgba(236,220,255,0.08)] flex flex-col items-center text-center">
           
-          {/* App Identity */}
-          <div className="mb-12">
-            <div className="relative inline-block mb-6">
-              {/* Silhouette Logo Mockup */}
-              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center overflow-hidden shadow-lg shadow-primary/20">
-                <img 
-                  className="w-full h-full object-cover mix-blend-luminosity" 
-                  alt="Minimalist silhouette" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbLt1Y6eBJEjRShsq2AKpOXM7mnWkx4HYb1P5yGiGdXRCA-WLGylPBNnmGBW78pbaUD7ePdHDo1GaktlqbGViJlusyKA0_taDE20jyQ3mFbqeiKYigdrF_xJFc-YoPc_yqa1fCu36E0Io-drp6jiEnuyr2VM858oAxO0sahxq5s8YC_XCMgzSSGF4NxkmkWROWf4nhJYX5n_LgZaXUpBrpuISmQ911f_jQcVvGny8RUcEVuNDn3kHhhVm_q42pN_zBKEL3vLWzz-M"
-                />
-              </div>
-            </div>
-            <h1 className="text-4xl font-serif italic text-primary tracking-tight">LofiTunes</h1>
-            <p className="mt-3 text-secondary/80 font-light tracking-widest text-sm uppercase font-body">your music, your vibe</p>
+          {/* App Identity — No image, just styled text */}
+          <div className="mb-8">
+            <h1
+              className="text-5xl font-serif italic leading-tight"
+              style={{
+                background: 'linear-gradient(135deg, #ecdcff 0%, #c4847a 50%, #ecdcff 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: 'drop-shadow(0 0 20px rgba(236,220,255,0.3))',
+              }}
+            >
+              LofiTunes
+            </h1>
+            <p className="mt-2 text-secondary/80 font-light tracking-[0.25em] text-xs uppercase font-body">your music, your vibe</p>
           </div>
 
-          {/* Decorative Element: Submerged Card Effect */}
-          <div className="w-full mb-10 p-4 rounded-lg bg-surface-container-lowest/20 shadow-inner">
-            <p className="text-on-surface-variant text-sm leading-relaxed">
-                              Step away from the noise. <br/>
-                              Enter your digital sanctuary.
-                          </p>
-          </div>
+          {/* Tagline */}
+          <p className="text-on-surface-variant/70 text-sm leading-relaxed mb-8">
+            Step away from the noise.<br/>
+            Enter your digital sanctuary.
+          </p>
 
           {/* Token expired notice */}
           {tokenExpired && (
-            <div className="mb-6 bg-error-container/20 border border-error-container/40 rounded-lg py-2 px-4 text-xs text-error-dim">
+            <div className="mb-4 bg-error-container/20 border border-error-container/40 rounded-lg py-2 px-4 text-xs text-error-dim w-full">
               Your session expired. Please sign in again.
             </div>
           )}
 
-          {/* Primary Action */}
+          {/* Primary Action — Glowing button */}
           <button 
             onClick={() => signIn('google')}
-            className="group relative w-full h-14 bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-semibold rounded-full flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(236,220,255,0.3)] active:scale-95"
+            className="group relative w-full h-14 font-semibold rounded-full flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.03] active:scale-95 overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, rgba(236,220,255,0.15) 0%, rgba(196,135,122,0.25) 100%)',
+              border: '1px solid rgba(236,220,255,0.25)',
+              boxShadow: '0 0 30px rgba(236,220,255,0.1), inset 0 1px 0 rgba(255,255,255,0.1)',
+              color: '#ecdcff',
+            }}
           >
-            <span className="material-symbols-outlined !text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-            <span>Login with YouTube</span>
+            <span className="material-symbols-outlined !text-xl" style={{ fontVariationSettings: "'FILL' 1", color: '#c4847a' }}>play_circle</span>
+            <span className="text-sm tracking-wide">Login with YouTube</span>
             {/* Hover Glow */}
-            <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{ background: 'linear-gradient(135deg, rgba(236,220,255,0.08), rgba(196,135,122,0.12))' }}
+            ></div>
           </button>
           
-          <div className="mt-6">
-            <p className="text-[10px] tracking-widest uppercase text-on-surface-variant/50">
+          <div className="mt-5">
+            <p className="text-[10px] tracking-widest uppercase text-on-surface-variant/40">
               Press <span className="text-primary font-bold">G</span> to change scenery
             </p>
           </div>
 
         </div>
 
-        {/* Ambient Floating Elements (Asymmetric Layout Decoration) */}
+        {/* Ambient Floating Elements */}
         <div className="absolute -top-12 -left-12 w-32 h-32 bg-secondary/10 blur-[60px] rounded-full"></div>
         <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-primary/10 blur-[80px] rounded-full"></div>
       </main>
