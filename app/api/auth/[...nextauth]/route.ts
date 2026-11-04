@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
@@ -30,7 +30,7 @@ const handler = NextAuth({
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({
-              client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+              client_id: process.env.GOOGLE_CLIENT_ID!,
               client_secret: process.env.GOOGLE_CLIENT_SECRET!,
               grant_type: 'refresh_token',
               refresh_token: token.refreshToken as string,

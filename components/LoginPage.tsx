@@ -1,6 +1,7 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 import { GifBackground } from './GifBackground';
 import { useGifCycle } from '@/hooks/useGifCycle';
@@ -73,6 +74,15 @@ export function LoginPage({ tokenExpired }: LoginPageProps) {
               style={{ background: 'linear-gradient(135deg, rgba(236,220,255,0.08), rgba(196,135,122,0.12))' }}
             ></div>
           </button>
+
+          <Link
+            href="/demo"
+            className="mt-3 w-full h-12 rounded-full flex items-center justify-center gap-2 text-sm text-white/75 border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:text-white transition-colors"
+          >
+            <span className="material-symbols-outlined text-lg">visibility</span>
+            Preview as guest
+          </Link>
+          <p className="mt-2 text-[10px] text-white/35">Demo mode · no account needed</p>
           
           <div className="mt-5">
             <p className="text-[10px] tracking-widest uppercase text-on-surface-variant/40">
